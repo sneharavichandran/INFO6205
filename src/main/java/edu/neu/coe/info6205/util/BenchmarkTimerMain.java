@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 public class BenchmarkTimerMain {
     public static void main(String args[])
     {
-        int n=10000;
+        int n=1250;
         int runs=500;
         Random random=new Random();
         //Integer[] arr={5,3,1,7,2,9,3,7,1,4};
@@ -20,7 +20,7 @@ public class BenchmarkTimerMain {
 
 
         for (int j = 0; j < n; j++) {
-            array_random[j] = random.nextInt(1000);
+            array_random[j] = random.nextInt(n);
             array_sorted[j] = array_random[j];
 //            System.out.println(array_sorted[j]);
 //            System.out.println("------------------------");
@@ -41,6 +41,9 @@ public class BenchmarkTimerMain {
 
         InsertionSort ins=new InsertionSort();
         Benchmark_Timer<Integer[]> timer_r=new Benchmark_Timer<>("Benchmarking",null,(x)->ins.sort(x,0,x.length),null);
+        Benchmark_Timer<Integer[]> timer_r2=new Benchmark_Timer<>("Benchmarking",null,(x)->ins.sort(x,0,x.length),null);
+        Benchmark_Timer<Integer[]> timer_r3=new Benchmark_Timer<>("Benchmarking",null,(x)->ins.sort(x,0,x.length),null);
+        Benchmark_Timer<Integer[]> timer_r4=new Benchmark_Timer<>("Benchmarking",null,(x)->ins.sort(x,0,x.length),null);
         Supplier sup_reverse=() -> array_reverse;
         Supplier sup_random=() -> array_random;
 
@@ -50,19 +53,20 @@ public class BenchmarkTimerMain {
         double time_reverse=timer_r.runFromSupplier(sup_reverse,runs);
         System.out.println("When n is "+n+" mean time is "+time_reverse+" for a reverse array");
         System.out.println();
-//        for (int k = 0; k < array_reverse.length; k++){
-//            System.out.println(array_reverse[k]);
-//        }
         double time_random=timer_r.runFromSupplier(sup_random,runs);
 
         System.out.println("When n is "+n+" mean time is "+time_random+" for a random array");
         System.out.println();
+
         double time_sorted=timer_r.runFromSupplier(sup_sorted,runs);
         System.out.println("When n is "+n+" mean time is "+time_sorted+" for a sorted array");
         System.out.println();
         double time_partial=timer_r.runFromSupplier(sup_partial,runs);
         System.out.println("When n is "+n+" mean time is "+time_partial+" for a partial sorted array");
         System.out.println();
+
+
+
 
 
 
