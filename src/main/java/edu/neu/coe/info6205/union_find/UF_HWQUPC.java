@@ -82,6 +82,15 @@ public class UF_HWQUPC implements UF {
         validate(p);
         int root = p;
         // TO BE IMPLEMENTED
+        while(parent[root]!=root)
+        {
+            if(pathCompression==true)
+            {
+                doPathCompression(root);
+                //System.out.println();
+            }
+            root=parent[root];
+        }
         return root;
     }
 
@@ -169,6 +178,22 @@ public class UF_HWQUPC implements UF {
 
     private void mergeComponents(int i, int j) {
         // TO BE IMPLEMENTED make shorter root point to taller one
+        int findi=find(i);
+        int findj=find(j);
+        if(findi!=findj)
+        {
+
+            if(height[findi]>=height[findj])
+            {
+                parent[findj]=findi;
+                height[i]+=height[j];
+            }
+            else{
+                parent[findi]=findj;
+                height[j]+=height[i];
+            }
+        }
+
     }
 
     /**
@@ -176,5 +201,6 @@ public class UF_HWQUPC implements UF {
      */
     private void doPathCompression(int i) {
         // TO BE IMPLEMENTED update parent to value of grandparent
+        parent[i]=parent[parent[i]];
     }
 }
